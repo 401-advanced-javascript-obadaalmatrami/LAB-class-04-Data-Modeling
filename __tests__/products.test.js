@@ -40,9 +40,9 @@ describe('Products Model', () => {
         let obj = { name: 'Test product' };
         return products.create(obj)
             .then(record => {
-                categories.delete(record)
+                products.delete(record)
                     .then(() => {
-                        categories.get(record.id)
+                        products.get(record.id)
                             .then((products) => {
                                 expect(products.length).toEqual(0);
                             })
