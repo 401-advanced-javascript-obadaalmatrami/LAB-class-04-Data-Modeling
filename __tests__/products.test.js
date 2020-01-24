@@ -1,16 +1,14 @@
 'use strict';
 
-
 const Products = require('../products/products.js');
 
 describe('Products Model', () => {
 
     let products;
-
+    let Record = {};
     beforeEach(() => {
         products = new Products();
-    })
-
+    });
 
     it('can post() a new product', () => {
         let obj = { price: 8 };
@@ -27,7 +25,7 @@ describe('Products Model', () => {
         let obj = { price: 12 };
         return products.create(obj)
             .then(record => {
-                return products.get(record._id)
+                return products.get(record.id)
                     .then(items => {
                         Object.keys(obj).forEach(key => {
                             expect(items[0][key]).toEqual(obj[key]);
@@ -41,7 +39,7 @@ describe('Products Model', () => {
         return products.create(obj)
             .then(record => {
                 products.delete(record)
-                    .then(() => {
+                    .then((record) => {
                         products.get(record.id)
                             .then((products) => {
                                 expect(products.length).toEqual(0);
@@ -57,7 +55,7 @@ describe('Products Model', () => {
         return products.create(obj)
             .then(items => {
                 items.price = 12;
-                products.update(items.id, record)
+                products.update(items.id, items)
                     .then(() => {
                         products.get(items.id)
                             .then((items) => {
@@ -67,8 +65,4 @@ describe('Products Model', () => {
             })
             .catch(e => console.error('ERR', e));
     });
-
-
-
-
 });

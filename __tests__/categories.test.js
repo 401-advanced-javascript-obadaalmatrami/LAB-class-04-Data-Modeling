@@ -65,5 +65,4 @@ describe('Categories Model', () => {
             .catch(err => console.error('Error', err));
     });
 
-
 });
